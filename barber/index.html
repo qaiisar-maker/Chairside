@@ -449,7 +449,7 @@ input.big{font-size:1.15rem;padding:12px 14px;font-weight:500}
 const PRO_KEY='barber';
 
 /* ===== Chairside Client Book — QaisarDigital ===== */
-const APP = {name:'Chairside', full:'Chairside Client Book', studio:'QaisarDigital', version:'1.0.0', key:'qd_chair_'+PRO_KEY+'_v1', photoDB:'qd_chair_'+PRO_KEY+'_photos'};
+const APP = {name:'Chairside', full:'Chairside Client Book', studio:'QaisarDigital', version:'1.0.1', key:'qd_chair_'+PRO_KEY+'_v1', photoDB:'qd_chair_'+PRO_KEY+'_photos'};
 
 /* ---------- icons ---------- */
 const IP = {
@@ -1230,7 +1230,7 @@ ACT.rper = v => { S.rper=v; render(); };
 /* demo money + stock */
 function demoMoney(){
   const t=todayKey(), d=pkey(t), mons=[dkey(new Date(d.getFullYear(),d.getMonth()-2,1)), dkey(new Date(d.getFullYear(),d.getMonth()-1,1)), t.slice(0,8)+'01'];
-  const E=[['Products & supplies',[186.4,92.5],'Wholesale order'],['Rent / booth rent',[650],'Booth rent'],['Phone & software',[24.99],'Phone plan'],['Marketing',[40],'Instagram ads'],['Education',[0,0,129],'Online class'],['Tools & equipment',[0,89],'New tools']];
+  const E=[['Products & supplies',[186.4,92.5],'Wholesale order'],['Rent / booth rent',[{hair:650,nails:420,lash:520,skin:560,barber:150}[PRO_KEY]||500],'Booth rent'],['Phone & software',[24.99],'Phone plan'],['Marketing',[40],'Instagram ads'],['Education',[0,0,129],'Online class'],['Tools & equipment',[0,89],'New tools']];
   mons.forEach((m,mi)=>{ const last=mi===2?d.getDate():28; E.forEach(([cat,amts,note],j)=>amts.forEach((a,k)=>{ if(!a) return; const day=1+((j*5+k*11+mi*3+4)%27); if (day>last) return; DB.money.push({id:uid(), type:'expense', amt:a, cat, date:m.slice(0,8)+pad(day), note}); }));
     [[38,'Product sale','Aftercare kit'],[24,'Product sale','Retail product'],[50,'Gift card','Gift card sold']].forEach(([a,cat,note],k)=>{ const day=3+k*8+mi; if (day>last) return; DB.money.push({id:uid(), type:'income', amt:a, cat, date:m.slice(0,8)+pad(day), note}); }); });
   // spread older visits so last months have income too
